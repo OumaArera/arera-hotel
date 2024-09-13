@@ -14,7 +14,7 @@ export class Hotel {
   @IsString()
   location: string;
 
-  @Column('decimal', { precision: 2, scale: 1 }) 
+  @Column() 
   @IsNumber()
   @Min(1)
   @Max(5)

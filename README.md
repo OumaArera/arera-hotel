@@ -1,85 +1,225 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Hotel Management Application
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This application is a hotel management system built with NestJS and TypeORM. It provides a RESTful API to manage hotel data, including creating, reading, updating, and deleting hotel information. The application connects to a PostgreSQL database and supports TypeScript.
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Create a Hotel**: Add a new hotel with details such as name, location, rating, and description.
+- **Retrieve Hotels**: Fetch a list of all hotels or details of a specific hotel by ID.
+- **Update a Hotel**: Modify details of an existing hotel.
+- **Delete a Hotel**: Remove a hotel from the system.
 
-## Project setup
+## Prerequisites
+
+- Node.js (v14 or later)
+- PostgreSQL
+- TypeScript
+
+## Setup
+
+### 1. Clone the Repository
 
 ```bash
-$ npm install
+git clone https://github.com/OumaArera/hotel-management.git
+cd hotel-management
 ```
 
-## Compile and run the project
+### 2. Install Dependencies
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+### 3. Configure Environment Variables
+
+Create a `.env` file in the project root and add your database configuration:
+
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+DB_NAME=hotel-db
+```
+
+### 4. Run Migrations
+
+Generate a migration (if needed):
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run typeorm migration:generate -- -n UpdateHotelEntity
 ```
 
-## Resources
+Run migrations:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npm run typeorm migration:run
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 5. Start the Application
 
-## Support
+```bash
+npm run start
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The server will start on `http://localhost:3000` by default.
 
-## Stay in touch
+## API Endpoints
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Get All Hotels
+
+**Endpoint:** `GET /hotels`
+
+**Description:** Retrieves a list of all hotels.
+
+**Response:**
+```json
+{
+    "success": true,
+    "message": "Hotels retrieved successfully",
+    "statusCode": 200,
+    "data": [
+        {
+            "id": 2,
+            "name": "Ouma Hotel",
+            "location": "Nairobi",
+            "rating": 4,
+            "description": "Update test"
+        },
+        {
+            "id": 3,
+            "name": "Arera Hotel",
+            "location": "Nairobi",
+            "rating": 3,
+            "description": "Another test"
+        },
+        {
+            "id": 5,
+            "name": "Areraa Hotel",
+            "location": "Nairobi",
+            "rating": 3,
+            "description": "Another test"
+        }
+    ]
+}
+```
+
+### Get Hotel by ID
+
+**Endpoint:** `GET /hotels/:id`
+
+**Description:** Retrieves details of a hotel by its ID.
+
+**Response:**
+```json
+{
+    "success": true,
+    "message": "Hotel retrieved successfully",
+    "statusCode": 200,
+    "data": {
+        "id": 2,
+        "name": "Ouma Hotel",
+        "location": "Nairobi",
+        "rating": 4,
+        "description": "Update test"
+    }
+}
+```
+
+### Create a Hotel
+
+**Endpoint:** `POST /hotels`
+
+**Description:** Creates a new hotel.
+
+**Request Body:**
+```json
+{
+  "name": "New Hotel",
+  "location": "Downtown",
+  "rating": 4.7,
+  "description": "A new hotel located downtown."
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Hotel created successfully.",
+  "statusCode": 201,
+  "data": {
+    "name": "Areraa Hotel",
+    "location": "Nairobi",
+    "rating": 3,
+    "description": "Another test",
+    "id": 5
+  }
+}
+```
+
+### Update a Hotel
+
+**Endpoint:** `PUT /hotels/:id`
+
+**Description:** Updates details of an existing hotel.
+
+**Request Body:**
+```json
+{
+  "location": "Uptown",
+  "rating": 4.8,
+  "description": "An updated description for the hotel."
+}
+```
+
+**Response:**
+```json
+{
+    "success": true,
+    "message": "Hotel updated successfully",
+    "statusCode": 200,
+    "data": {
+        "id": 3,
+        "name": "Arera Hotel",
+        "location": "Nairobi",
+        "rating": 3,
+        "description": "Updating description"
+    }
+}
+```
+
+### Delete a Hotel
+
+**Endpoint:** `DELETE /hotels/:id`
+
+**Description:** Deletes a hotel by its ID.
+
+**Response:**
+```json
+{
+    "success": true,
+    "message": "Hotel with ID 3 deleted successfully",
+    "statusCode": 200
+}
+```
+
+## Development
+
+To start the development server with auto-reloading, use:
+
+```bash
+npm start
+```
+
+## Testing
+
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Developer
+This project has been developed by John Ouma alias Ouma Arera
