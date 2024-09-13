@@ -214,9 +214,6 @@ To start the development server with auto-reloading, use:
 npm start
 ```
 
-## Testing
-
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
